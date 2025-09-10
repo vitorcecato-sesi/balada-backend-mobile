@@ -58,9 +58,9 @@ callback(err, { changes: this.changes });
 }); 
 } 
 module.exports = { 
-getAllClientes, 
-getClienteById, 
-createCliente, 
-updateCliente, 
-deleteCliente 
+getAllBaladas, 
+getBaladaById, 
+createBalada, 
+updateBalada, 
+deleteBalada 
 };
