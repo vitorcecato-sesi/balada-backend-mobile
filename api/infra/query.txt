@@ -1,0 +1,19 @@
+Arquivo para salvar as querys
+
+CREATE TABLE Baladas(  
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(50) not null,
+    tipo VARCHAR(30) not null,
+    endereco VARCHAR(70) not null,
+    data DATE not null,
+    cidade VARCHAR(30) not null
+);
+
+INSERT INTO "Baladas" (nome, tipo, endereco, data, cidade) VALUES
+('D-Edge', 'Eletrônica', 'Avenida Presidente Wilson, 231 - Centro, Rio de Janeiro - RJ, 20030-020', '2023-10-15', 'Rio de Janeiro'),
+('Villa Mix', 'Sertanejo', 'Av. Francisco Matarazzo, 774 - Água Branca, São Paulo - SP, 05001-100', '2023-11-22', 'São Paulo'),
+('The Week', 'Pop', 'Rua Guaicurus, 324 - Lapa, São Paulo - SP, 05033-000', '2023-12-10', 'São Paulo'),
+('Green Valley', 'Eletrônica', 'Rua Antônio Lopes Gonçalves Bastos, 1083 - Rio Pequeno, Camboriú - SC, 88340-000', '2023-10-29', 'Camboriú'),
+('Bar Bukowski', 'Rock', 'Rua Álvaro Ramos, 270 - Botafogo, Rio de Janeiro - RJ, 22280-110', '2023-12-05', 'Rio de Janeiro');
+
+drop Table "BALADAS";
