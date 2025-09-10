@@ -1,4 +1,4 @@
-const Balada = require('../models/balada');
+const Balada = require('../models/baladaModels');
 // Controlador para obter todas as baladas
 exports.getAllBaladas = (req, res) => {
 Balada.getAllBaladas((err, baladas) => {
