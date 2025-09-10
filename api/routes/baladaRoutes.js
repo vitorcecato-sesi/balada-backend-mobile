@@ -1,22 +1,21 @@
-//clienteRoutes.js
 const express = require("express");
 const router = express.Router();
-const clienteController = require("../controllers/clienteController");
-//Lembrando que a rota raiz tem a palavra clientes, definido no app.js
+const baladaController = require("../controllers/baladaController");
+//Lembrando que a rota raiz tem a palavra balada, definido no app.js
 
-// Rota para obter todos os clientes
-router.get("/", clienteController.getAllClientes);
+// Rota para obter todas as baladas
+router.get("/", baladaController.getAllBaladas);
 
-// Rota para obter um único cliente pelo ID
-router.get("/:id", clienteController.getClienteById);
+// Rota para obter uma única balada pelo ID
+router.get("/:id", baladaController.getBaladaById);
 
-// Rota para criar um novo cliente
-router.post("/", clienteController.createCliente);
+// Rota para criar uma nova balada
+router.post("/", baladaController.createBalada);
 
-// Rota para atualizar um cliente existente
-router.put("/:id", clienteController.updateCliente);
+// Rota para atualizar uma balada existente
+router.put("/:id", baladaController.updateBalada);
 
-// Rota para deletar um cliente
-router.delete("/:id", clienteController.deleteCliente);
+// Rota para deletar uma balada
+router.delete("/:id", baladaController.deleteBalada);
 
 module.exports = router;
