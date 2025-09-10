@@ -16,4 +16,9 @@ INSERT INTO "Baladas" (nome, tipo, endereco, data, cidade) VALUES
 ('Green Valley', 'Eletrônica', 'Rua Antônio Lopes Gonçalves Bastos, 1083 - Rio Pequeno, Camboriú - SC, 88340-000', '2023-10-29', 'Camboriú'),
 ('Bar Bukowski', 'Rock', 'Rua Álvaro Ramos, 270 - Botafogo, Rio de Janeiro - RJ, 22280-110', '2023-12-05', 'Rio de Janeiro');
 
+INSERT INTO "Baladas" (nome, tipo, endereco, data, cidade) VALUES
+('SESI DA TROPA', 'Funk', 'Rua Ana Nery, 123', '2025-11-20', 'Vinhedo'),
+('BALADA SESI VINHEDO', 'MPB', 'Rua Matheus Oliveira, 456', '2025-10-24', 'Valinhos'),
+('TAYLOR 242', 'Pop', 'Avenida Alameda, 789', '2025-12-25', 'Campinas');
+
 drop Table "BALADAS";

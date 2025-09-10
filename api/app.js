@@ -5,7 +5,7 @@ const port = 3000;
 // Middleware para analisar o corpo das requisições em JSON 
 app.use(express.json()); 
 // Importando as rotas do cliente 
-const clienteRoutes = require('./routes/baladaRoutes'); 
+const baladaRoutes = require('./routes/baladaRoutes'); 
 // Usando as rotas do cliente com o prefixo '/clientes' 
 app.use('/balada', baladaRoutes); 
 // Iniciando o servidor na porta especificada 

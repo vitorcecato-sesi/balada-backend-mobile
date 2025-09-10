@@ -9,6 +9,12 @@ router.get("/", baladaController.getAllBaladas);
 // Rota para obter uma única balada pelo ID
 router.get("/:id", baladaController.getBaladaById);
 
+// Rota para obter baladas por cidade
+router.get("/cidade/:cidade", baladaController.getBaladaByCity);
+
+// Rota para obter baladas por data
+router.get("/data/:data", baladaController.getBaladaByData);
+
 // Rota para criar uma nova balada
 router.post("/", baladaController.createBalada);
 
