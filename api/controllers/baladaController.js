@@ -1,53 +1,72 @@
 const Balada = require('../models/baladaModels');
 // Controlador para obter todas as baladas
 exports.getAllBaladas = (req, res) => {
-Balada.getAllBaladas((err, baladas) => {
-if (err) {
-res.status(500).send(err);
-} else {
-res.json(baladas);
-}
-});
+    Balada.getAllBaladas((err, baladas) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.json(baladas);
+        }
+    });
 };
+
+exports.getBaladaById = (req, res) => {
+    Balada.getBaladaById(req.params.id, (err, balada) => {
+        if (err) {
+            res.status(500).send(err)
+        } else if (balada) {
+            res.json(balada);
+        } else {
+            res.status(404).send({ message: 'Balada não encontrada' });
+        }
+    })
+}
+
 // Controlador para obter uma balada pela cidade
 exports.getBaladaByCity = (req, res) => {
-Balada.getBaladaByCity(req.params.cidade, (err, balada) => { if (err) {
-res.status(500).send(err);
-} else if (balada) {
-res.json(balada);
-} else {
-res.status(404).send({ message: 'Balada não encontrado' }); }
-});
+    Balada.getBaladaByCity(req.params.cidade, (err, balada) => {
+        if (err) {
+            res.status(500).send(err);
+        } else if (balada) {
+            res.json(balada);
+        } else {
+            res.status(404).send({ message: 'Balada não encontrado' });
+        }
+    });
 };
 // Controlador para obter uma balada pela data
 exports.getBaladaByData = (req, res) => {
-Balada.getBaladaByData(req.params.data, (err, balada) => { if (err) {
-res.status(500).send(err);
-} else if (balada) {
-res.json(balada);
-} else {
-res.status(404).send({ message: 'Balada não encontrado' }); }
-});
+    Balada.getBaladaByData(req.params.data, (err, balada) => {
+        if (err) {
+            res.status(500).send(err);
+        } else if (balada) {
+            res.json(balada);
+        } else {
+            res.status(404).send({ message: 'Balada não encontrado' });
+        }
+    });
 };
 // Controlador para criar uma balada
 exports.createBalada = (req, res) => {
-Balada.createBalada(req.body, (err, result) => {
-if (err) {
-res.status(500).send(err);
-} else {
-res.status(201).json(result);
-}
-});
+    Balada.createBalada(req.body, (err, result) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(201).json(result);
+        }
+    });
 };
 // Controlador para atualizar uma balada existente
 exports.updateBalada = (req, res) => {
-Balada.updateBalada(req.params.id, req.body, (err, result) => { if (err) {
-res.status(500).send(err);
-} else if (result.changes) {
-res.status(200).json(result);
-} else {
-res.status(404).send({ message: 'Balada não encontrada' }); }
-});
+    Balada.updateBalada(req.params.id, req.body, (err, result) => {
+        if (err) {
+            res.status(500).send(err);
+        } else if (result.changes) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).send({ message: 'Balada não encontrada' });
+        }
+    });
 };
 // Controlador para deletar uma balada
 exports.deleteBalada = (req, res) => {
