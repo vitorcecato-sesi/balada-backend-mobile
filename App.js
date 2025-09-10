@@ -1,20 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+// app.js 
+const express = require('express'); 
+const app = express(); 
+const port = 3000; 
+// Middleware para analisar o corpo das requisições em JSON 
+app.use(express.json()); 
+// Importando as rotas do cliente 
+const clienteRoutes = require('./routes/baladas'); 
+// Usando as rotas do cliente com o prefixo '/clientes' 
+app.use('/baladas', baladasRoutes); 
+// Iniciando o servidor na porta especificada 
+app.listen(port, () => { 
+console.log(`Servidor rodando em http://localhost:${port}`); 
 });
