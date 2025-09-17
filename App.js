@@ -3,6 +3,11 @@ import { NavigationContainer } from '@react-navigation/native' /* é um "contain
 import { createNativeStackNavigator } from '@react-navigation/native-stack' /* ele cria uma "pilha" de telas (Stack) para navegar entre elas. */
 
 /* Imports das telas do App */
+import Menu from './screens/Menu'
+import Buscar from './screens/Buscar'
+import Inserir from './screens/Inserir'
+import Atualizar from './screens/Atualizar'
+import Deletar from './screens/Deletar'
 
 const Stack = createNativeStackNavigator();
 
