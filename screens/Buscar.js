@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import {View,Text,SafeAreaView,TouchableOpacity,Modal,StyleSheet,TextInput,FlatList} from 'react-native'
+
 export default function Menu({ navigation }) {
   const [modalGetCidade, setModalGetCidadeVisivel] = useState(false);
 
@@ -23,7 +26,7 @@ export default function Menu({ navigation }) {
   //Get Balada por Cidade
   const metodoGetCidade = async () => {
     try {
-      const response = await fetch(`${URL_API}/baladas/${cidade}`); // chamada para api
+      const response = await fetch(`${URL_API}/balada/${cidade}`); // chamada para api
       const dadosBD = await response.json(); // armazena os dados
       console.log(dadosBD); // mostra no console log para o dev
 
@@ -65,8 +68,8 @@ export default function Menu({ navigation }) {
   );
   return (
     <>
-      <SafeArearView>
-        <Text> Busca de Baladas</Text>
+      <SafeAreaView style={styles.container}>
+            <Text style={styles.titulo}> Busca de Baladas </Text>
         <View>
           <TouchableOpacity
             style={[styles.menuButton, { backgroundColor: "#2196F3" }]}
@@ -84,7 +87,7 @@ export default function Menu({ navigation }) {
         onRequestClose={() => setModalGetCidadeVisivel(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalArea}>
+            <View style={styles.blocoModal}>
             <Text style={styles.modalTitulo}>Lista de Clientes</Text>
             <View style={styles.rowButtons}>
 
@@ -119,11 +122,141 @@ export default function Menu({ navigation }) {
             >
               <Text style={styles.fecharButtonText}>Fechar</Text>
             </TouchableOpacity>
-          </View>
+        </View>
         </View>
       </Modal>
-      </SafeArearView>
+      </SafeAreaView>
     </>
   );
 }
-9;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f7fa",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+  titulo: {
+    fontSize: 22,
+    fontWeight: "bold"
+  },
+  menuButton: {
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    alignItems: "center",
+    marginVertical: 12,
+  },
+  menuButtonText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#fff",
+  },
+
+  // Modal
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+    paddingTop: 100,
+  },
+  blocoModal: {
+    backgroundColor: "white",
+    width: 300,
+    height: 400,
+    padding: 25,
+    borderRadius: 10
+  },
+  modalArea: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 20,
+    width: "95%",
+    maxHeight: "85%",
+    elevation: 6,
+  },
+  modalTitulo: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#333",
+    textAlign: "center",
+    marginBottom: 16,
+  },
+
+  rowButtons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 12,
+  },
+  actionButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    elevation: 3,
+  },
+  actionButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    padding: 12,
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 16,
+    backgroundColor: "#fafafa",
+    color: "#333",
+  },
+
+  lista: {
+    marginTop: 10,
+  },
+  cardCliente: {
+    backgroundColor: "#f9f9f9",
+    padding: 16,
+    borderRadius: 12,
+    marginVertical: 6,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  cardLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#444",
+  },
+  cardValue: {
+    fontSize: 14,
+    fontWeight: "400",
+    color: "#555",
+  },
+
+  erroMsg: {
+    color: "red",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+
+  fecharButton: {
+    backgroundColor: "#FF6B6B",
+    paddingVertical: 12,
+    borderRadius: 10,
+    marginTop: 16,
+    alignItems: "center",
+  },
+  fecharButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+});
+
