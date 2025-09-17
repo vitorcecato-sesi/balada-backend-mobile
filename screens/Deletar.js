@@ -5,7 +5,7 @@ export default function Deletar({ navigation }) {
   const metodoDelete = async () => {
     try {
       // Realiza a chamada
-      const response = await fetch(`${URL_API}/clientes/${id}`, {
+      const response = await fetch(`${URL_API}/balada/${id}`, {
         method: "DELETE",
       });
       // Variável para realizar o armazenamento da resposta (não utilizada)
@@ -13,7 +13,7 @@ export default function Deletar({ navigation }) {
       metodoGetAll(); // Chama para atualizar os ids
       limparCampos(); // Limpa os campos
     } catch (error) {
-      setErroMsg("Erro ao deletar cliente");
+      setErroMsg("Erro ao deletar balada");
     }
   };
 
