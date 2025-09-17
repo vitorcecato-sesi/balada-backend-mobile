@@ -9,7 +9,8 @@ export default function Deletar({ navigation }) {
   const metodoDelete = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${URL_API}/clientes/${id}`, {
+      // Realiza a chamada
+      const response = await fetch(`${URL_API}/balada/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
