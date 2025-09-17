@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Text, Button, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
 export default function Deletar({ navigation }) {
   const [id, setId] = useState("");
   const [erroMsg, setErroMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const metodoDelete = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${URL_API}/clientes/${id}`, {
         method: "DELETE",
@@ -13,14 +15,13 @@ export default function Deletar({ navigation }) {
       if (response.ok) {
         setErroMsg("Deletado com sucesso!");
         setId("");
-        // metodoGetAll(); // Descomente se existir
-        // limparCampos(); // Descomente se existir
       } else {
-        setErroMsg("Erro ao deletar cliente");
+        setErroMsg("Erro ao deletar balada");
       }
     } catch (error) {
-      setErroMsg("Erro ao deletar cliente");
+      setErroMsg("Erro ao deletar balada");
     }
+    setLoading(false);
   };
 
   return (
@@ -33,7 +34,16 @@ export default function Deletar({ navigation }) {
         onChangeText={setId}
         keyboardType="numeric"
       />
-      <Button title="Confirmar" onPress={metodoDelete} color="#d32f2f" />
+      <TouchableOpacity
+        style={[styles.button, loading && styles.buttonDisabled]}
+        onPress={metodoDelete}
+        activeOpacity={0.6}
+        disabled={loading}
+      >
+        <Text style={styles.buttonText}>
+          {loading ? "Deletando..." : "Confirmar"}
+        </Text>
+      </TouchableOpacity>
       {erroMsg ? <Text style={styles.msg}>{erroMsg}</Text> : null}
     </View>
   );
@@ -62,6 +72,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 20,
     fontSize: 18,
+  },
+  button: {
+    backgroundColor: "#d32f2f",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  buttonDisabled: {
+    opacity: 0.6,
   },
   msg: {
     marginTop: 20,
