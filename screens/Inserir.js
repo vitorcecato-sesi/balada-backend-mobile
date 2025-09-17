@@ -1,60 +1,73 @@
 import React, { useState } from "react"
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native"
 
-  // Configuração Backend -----------------------------------
-  const ipLocal = "10.136.38.187"
-  const porta = "3000"
-  const URL_API = `http://${ipLocal}:${porta}`
-
+// Configuração Backend -----------------------------------
+const ipLocal = "10.136.38.187"
+const porta = "3000"
+const URL_API = `http://${ipLocal}:${porta}`
 
 export default function Inserir({ navigation }) {
   const [nome, setNome] = useState("")
   const [endereco, setEndereco] = useState("")
-  const [data, setData] = useState("")
+  const [dataBalada, setDataBalada] = useState("") // <- só para a data digitada
   const [tipo, setTipo] = useState("")
-  
+  const [listaBaladas, setListaBaladas] = useState([]) // <- lista de registros salvos
 
   const limparCampos = () => {
     setNome("")
     setEndereco("")
-    setData("")
+    setDataBalada("")
     setTipo("")
   }
 
   const metodoPost = async () => {
+    // Validação: não permitir campos vazios
+    if (!nome || !endereco || !dataBalada || !tipo) {
+      Alert.alert("Erro", "Preencha todos os campos antes de continuar!")
+      return
+    }
+
     try {
-      // Aguarda a resposta do fetch (requisição da API)
       const response = await fetch(`${URL_API}/baladas/`, {
-        // Escolhe qual método será usado
         method: "POST",
-        // Define o tipo de dado que será enviado (padrão JSON)
         headers: {
           "Content-Type": "application/json",
         },
-        // Deixa o corpo da requisição com o padrão do itens que existem no banco de dados, transformando em JSON
         body: JSON.stringify({
-          nome: nome,
-          endereco: endereco,
-          data: data,
-          tipo: tipo,
+          nome,
+          endereco,
+          data: dataBalada, // usa a data do input
+          tipo,
         }),
       })
-      // Transforma a resposta em JSON
+
+      if (!response.ok) {
+        Alert.alert("Erro", "Não foi possível cadastrar a balada.")
+        return
+      }
+
       const dadosBD = await response.json()
-      metodoGetAll()
-      // Atualiza o estado "data" com os dados recebidos do backend
-      setData([dadosBD])
-      // Depois de cadastrar, limpa os campos, para caso for usar novamente e não dar duplicidade
+
+      // Atualiza a lista local com o novo item
+      setListaBaladas([...listaBaladas, dadosBD])
+
+      Alert.alert("Sucesso", "Balada cadastrada com sucesso!")
       limparCampos()
     } catch (error) {
-      // Caso der erro, exibe a mensagem
-      setErroMsg("Erro ao cadastrar balada! Verifique o console para detalhes.")
+      Alert.alert("Erro", "Erro ao cadastrar balada! Verifique o console.")
       console.log(error)
     }
   }
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.botaoMen}
+        onPress={() => navigation.goBack()}
+      >
+        <Text style={styles.textoBotaoMen}>⬅ Voltar</Text>
+      </TouchableOpacity>
+
       <Text style={styles.titulo}>Cadastrar Balada</Text>
 
       <TextInput
@@ -72,8 +85,8 @@ export default function Inserir({ navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Data"
-        value={data}
-        onChangeText={setData}
+        value={dataBalada}
+        onChangeText={setDataBalada}
       />
       <TextInput
         style={styles.input}
@@ -85,6 +98,20 @@ export default function Inserir({ navigation }) {
       <TouchableOpacity style={styles.botao} onPress={metodoPost}>
         <Text style={styles.textoBotao}>Inserir</Text>
       </TouchableOpacity>
+
+      {/* Exibir lista de baladas cadastradas */}
+      {listaBaladas.length > 0 && (
+        <View style={{ marginTop: 20, width: "100%" }}>
+          <Text style={{ fontWeight: "bold", fontSize: 18, marginBottom: 10 }}>
+            Baladas Cadastradas:
+          </Text>
+          {listaBaladas.map((item, index) => (
+            <Text key={index}>
+              {item.nome} - {item.endereco} - {item.data} - {item.tipo}
+            </Text>
+          ))}
+        </View>
+      )}
     </View>
   )
 }
@@ -94,7 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
-    alignItems: "center", 
+    alignItems: "center",
     justifyContent: "center",
   },
   titulo: {
@@ -104,7 +131,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    width: "80%", 
+    width: "80%",
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
@@ -122,12 +149,12 @@ const styles = StyleSheet.create({
     width: 80,
   },
   botao: {
-    backgroundColor: "#9b59b6", 
+    backgroundColor: "#9b59b6",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
-    width: "60%", 
+    width: "60%",
   },
   textoBotao: {
     color: "#fff",
