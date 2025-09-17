@@ -64,7 +64,7 @@ export default function Menu({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#181A20",
+        backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
         padding: 24,
