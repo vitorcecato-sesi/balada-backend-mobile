@@ -21,31 +21,33 @@ export default function Inserir({ navigation }) {
     setTipo("")
   }
 
-
   const metodoPost = async () => {
-     if (!nome || !endereco || !data || !tipo) {
-      Alert.alert("Erro", "Preencha todos os campos antes de continuar!")
-      return
-    }
     try {
+      // Aguarda a resposta do fetch (requisição da API)
       const response = await fetch(`${URL_API}/baladas/`, {
+        // Escolhe qual método será usado
         method: "POST",
+        // Define o tipo de dado que será enviado (padrão JSON)
         headers: {
           "Content-Type": "application/json",
         },
+        // Deixa o corpo da requisição com o padrão do itens que existem no banco de dados, transformando em JSON
         body: JSON.stringify({
-          nome,
-          endereco,
-          data,
-          tipo,
+          nome: nome,
+          endereco: endereco,
+          data: data,
+          tipo: tipo,
         }),
       })
-
+      // Transforma a resposta em JSON
       const dadosBD = await response.json()
+      metodoGetAll()
+      // Atualiza o estado "data" com os dados recebidos do backend
+      setData([dadosBD])
+      // Depois de cadastrar, limpa os campos, para caso for usar novamente e não dar duplicidade
       limparCampos()
-
-      Alert.alert("Sucesso", "Balada cadastrada com sucesso!")
     } catch (error) {
+      // Caso der erro, exibe a mensagem
       setErroMsg("Erro ao cadastrar balada! Verifique o console para detalhes.")
       console.log(error)
     }
@@ -53,13 +55,6 @@ export default function Inserir({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.botaoMen}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.textoBotaoMen}>⬅ Voltar</Text>
-      </TouchableOpacity>
-
       <Text style={styles.titulo}>Cadastrar Balada</Text>
 
       <TextInput
