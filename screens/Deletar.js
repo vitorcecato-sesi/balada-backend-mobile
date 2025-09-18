@@ -6,6 +6,11 @@ export default function Deletar({ navigation }) {
   const [erroMsg, setErroMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Configuração do Backend
+  const ipLocal = "10.136.38.181"; 
+  const porta = "3000";
+  const URL_API = `http://${ipLocal}:${porta}`;
+
   const metodoDelete = async () => {
     setLoading(true);
     try {

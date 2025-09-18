@@ -49,7 +49,7 @@ export default function Atualizar({ navigation }) {
     }
 
     try {
-      const response = await fetch(`${URL_API}/baladas/${baladaId}`);
+      const response = await fetch(`${URL_API}/balada/${baladaId}`);
       if (response.ok) {
         const dados = await response.json();
         // Preenche os campos com os dados retornados pela API
@@ -80,7 +80,7 @@ export default function Atualizar({ navigation }) {
   // Função para enviar a requisição PUT e atualizar os dados
   const metodoPut = async () => {
     try {
-      const response = await fetch(`${URL_API}/baladas/${id}`, {
+      const response = await fetch(`${URL_API}/balada/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -119,11 +119,6 @@ export default function Atualizar({ navigation }) {
     // Verifica se os dados da balada foram carregados
     if (!data) {
       setErroMsg("Busque uma balada válida antes de tentar atualizar.");
-      return;
-    }
-    // Verifica se pelo menos um campo obrigatório está preenchido
-    if (!nome.trim() || !cidade.trim() || !dataT.trim()) {
-      setErroMsg("Os campos Nome, Cidade e Data são obrigatórios.");
       return;
     }
 
