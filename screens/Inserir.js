@@ -34,13 +34,13 @@ export default function Inserir({ navigation }) {
 
     try {
       // Envia os dados para a API
-      const response = await fetch(`${URL_API}/balada/`, {
-        method: "POST",
+      const response = await fetch(`${URL_API}/balada/`, { // Endpoint da API para inserir balada
+        method: "POST", // Método HTTP para criar um novo recurso
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Define o tipo de conteúdo como JSON
         },
-        body: JSON.stringify({
-          nome: nome,
+        body: JSON.stringify({ // Converte os dados para JSON
+          nome: nome, 
           endereco: endereco,
           data: dataBalada,
           tipo: tipo,
@@ -48,7 +48,7 @@ export default function Inserir({ navigation }) {
         }),
       })
 
-      // Verifica se a resposta foi bem-sucedida
+      // Verifica se a resposta foi bem-sucedida 
       if (!response.ok) {
         Alert.alert("Erro", "Não foi possível cadastrar a balada.")
         return
@@ -65,16 +65,16 @@ export default function Inserir({ navigation }) {
 
   return (
     <View style={styles.container}> 
-      <Text style={styles.titulo}>Cadastrar Balada</Text>
+      <Text style={styles.titulo}>Cadastrar Balada 🎉</Text>
 
       <View style={styles.inputWrapper}> 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Nome da Balada</Text>
           <TextInput
-            style={styles.input}
-            placeholder="Digite o nome da balada"
-            value={nome}
-            onChangeText={setNome}
+            style={styles.input} // Estilo do input
+            placeholder="Digite o nome da balada" // Placeholder do input
+            value={nome} // Valor do input vinculado ao estado 'nome'
+            onChangeText={setNome} // Atualiza o estado 'nome' ao digitar
           />
         </View>
 
@@ -119,7 +119,7 @@ export default function Inserir({ navigation }) {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.botao} onPress={metodoPost}>
+      <TouchableOpacity style={styles.botao} onPress={metodoPost}>  {/*Chama a função metodoPost ao pressionar o botão*/} 
         <Text style={styles.textoBotao}>Inserir</Text>
       </TouchableOpacity>
     </View>
