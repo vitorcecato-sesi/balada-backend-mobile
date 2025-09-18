@@ -11,6 +11,7 @@ export default function Inserir({ navigation }) {
   const [endereco, setEndereco] = useState("")
   const [dataBalada, setDataBalada] = useState("") // <- só para a data digitada
   const [tipo, setTipo] = useState("")
+    const [cidade, setCidade] = useState("")
   const [listaBaladas, setListaBaladas] = useState([]) // <- lista de registros salvos
 
   const limparCampos = () => {
@@ -18,11 +19,12 @@ export default function Inserir({ navigation }) {
     setEndereco("")
     setDataBalada("")
     setTipo("")
+    setCidade("")
   }
 
   const metodoPost = async () => {
     // Validação: não permitir campos vazios
-    if (!nome || !endereco || !dataBalada || !tipo) {
+    if (!nome || !endereco || !dataBalada || !tipo || !cidade) {
       Alert.alert("Erro", "Preencha todos os campos antes de continuar!")
       return
     }
@@ -38,6 +40,7 @@ export default function Inserir({ navigation }) {
           endereco: endereco,
           data: dataBalada, // usa a data do input
           tipo: tipo,
+          cidade: cidade,
         }),
       })
 
@@ -61,12 +64,6 @@ export default function Inserir({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.botaoMen}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.textoBotaoMen}>⬅ Voltar</Text>
-      </TouchableOpacity>
 
       <Text style={styles.titulo}>Cadastrar Balada</Text>
 
@@ -75,6 +72,12 @@ export default function Inserir({ navigation }) {
         placeholder="Nome"
         value={nome}
         onChangeText={setNome}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Tipo"
+        value={tipo}
+        onChangeText={setTipo}
       />
       <TextInput
         style={styles.input}
@@ -88,11 +91,11 @@ export default function Inserir({ navigation }) {
         value={dataBalada}
         onChangeText={setDataBalada}
       />
-      <TextInput
+     <TextInput
         style={styles.input}
-        placeholder="Tipo"
-        value={tipo}
-        onChangeText={setTipo}
+        placeholder="Cidade"
+        value={cidade}
+        onChangeText={setCidade}
       />
 
       <TouchableOpacity style={styles.botao} onPress={metodoPost}>
@@ -107,7 +110,7 @@ export default function Inserir({ navigation }) {
           </Text>
           {listaBaladas.map((item, index) => (
             <Text key={index}>
-              {item.nome} - {item.endereco} - {item.data} - {item.tipo}
+              {item.nome} - {item.endereco} - {item.data} - {item.tipo} - {item.cidade}
             </Text>
           ))}
         </View>
