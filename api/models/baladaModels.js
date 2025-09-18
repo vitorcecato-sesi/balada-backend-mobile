@@ -33,7 +33,7 @@ function getBaladaById(id, callback) {
 // Função para buscar uma balada por Data 
 function getBaladaByData(data, callback) {
     const db = openDbConnection();
-    db.get("SELECT * FROM Baladas WHERE data = ?", [data], (err, row) => {
+    db.all("SELECT * FROM Baladas WHERE data = ?", [data], (err, row) => {
         db.close();
         callback(err, row);
     });
@@ -42,7 +42,7 @@ function getBaladaByData(data, callback) {
 // Função para buscar uma balada por Cidade 
 function getBaladaByCity(cidade, callback) {
     const db = openDbConnection();
-    db.get("SELECT * FROM Baladas WHERE cidade = ?", [cidade], (err, row) => {
+    db.all("SELECT * FROM Baladas WHERE cidade = ?", [cidade], (err, row) => {
         db.close();
         callback(err, row);
     });
