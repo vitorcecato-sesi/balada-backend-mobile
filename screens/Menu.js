@@ -1,26 +1,28 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native"
 
 export default function Menu({ navigation }) {
+
+    // Switch Case para definir a página que o usuário será redirecionado
     const pagina = (p) => {
         switch (p) {
             case "buscar":
                 navigation.navigate("Buscar")
-            break
+            break   // Define o fim do case
 
             case "inserir":
                 navigation.navigate("Inserir")
-            break
+            break   // Define o fim do case
             
             case "atualizar":
                 navigation.navigate("Atualizar")
-            break
+            break   // Define o fim do case
             
             case "deletar":
                 navigation.navigate("Deletar")
-            break
+            break   // Define o fim do case
             
-            default:
-            break
+            default:    // Caso não seja nenhum dos anteriores
+            break   // Define o fim do case
         }
     }
 
