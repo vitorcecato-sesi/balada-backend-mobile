@@ -204,7 +204,7 @@ export default function Atualizar({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: "#ffffffff",
   },
   content: {
     padding: 20,
@@ -212,21 +212,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#FFF",
+    color: "#FFD36E",
     marginBottom: 20,
     textAlign: "center",
   },
   label: {
     fontSize: 16,
-    color: "#EAEAEA",
+    color: "#2b2b2bff",
     marginBottom: 5,
     marginTop: 10,
   },
   input: {
-    backgroundColor: "#1E1E1E",
-    color: "#FFF",
+    backgroundColor: "#efeeeeff",
+    color: "#2b2b2bff",
     borderWidth: 1,
-    borderColor: "#333",
+    borderColor: "#efeeeeff",
     borderRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 12,
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   actionButton: {
-    backgroundColor: "#6200EE",
+    backgroundColor: "#FFD36E",
     borderRadius: 8,
     paddingVertical: 15,
     alignItems: "center",
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   erroMsg: {
-    color: "#FF6347", // Tomato Red
+    color: "#FF6347",
     fontSize: 14,
     textAlign: "center",
     marginTop: 15,
