@@ -34,10 +34,10 @@ export default function Inserir({ navigation }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nome,
-          endereco,
+          nome: nome,
+          endereco: endereco,
           data: dataBalada, // usa a data do input
-          tipo,
+          tipo: tipo,
         }),
       })
 
