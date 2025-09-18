@@ -42,7 +42,7 @@ function getBaladaByData(data, callback) {
 // Função para buscar uma balada por Cidade 
 function getBaladaByCity(cidade, callback) {
     const db = openDbConnection();
-    db.all("SELECT * FROM Baladas WHERE cidade = ?", [cidade], (err, row) => {
+    db.all("SELECT * FROM Baladas WHERE UPPER (cidade) = ?", [cidade], (err, row) => {
         db.close();
         callback(err, row);
     });
