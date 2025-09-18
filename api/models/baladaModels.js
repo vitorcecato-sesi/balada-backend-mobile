@@ -59,15 +59,57 @@ function createBalada(balada, callback) {
 }
 
 // Função para atualizar uma balada existente 
-function updateBalada(id, cliente, callback) {
-    const { nome, endereco, data, tipo } = cliente;
+function updateBalada(id, balada, callback) {
+    // Array para armazenar os campos que serão atualizados
+    const fields = [];
+    // Array para armazenar os valores correspondentes aos campos
+    const values = [];
+
+    // Verifica se o campo 'nome' foi fornecido e o adiciona para atualização
+    if (balada.nome) {
+        fields.push("nome = ?");
+        values.push(balada.nome);
+    }
+    // Verifica se o campo 'cpf' foi fornecido e o adiciona para atualização
+    if (balada.cidade) {
+        fields.push("cidade = ?");
+        values.push(balada.cidade);
+    }
+    // Verifica se o campo 'email' foi fornecido e o adiciona para atualização
+    if (balada.data) {
+        fields.push("data = ?");
+        values.push(balada.data);
+    }
+    // Verifica se o campo 'telefone' foi fornecido e o adiciona para atualização
+    if (balada.tipo) {
+        fields.push("tipo = ?");
+        values.push(balada.tipo);
+    }
+
+    if (balada.endereco) {
+        fields.push("endereco = ?");
+        values.push(balada.endereco);
+    }
+
+    // Se nenhum campo foi fornecido, retorna sem fazer alterações
+    if (fields.length === 0) {
+        return callback(null, { changes: 0 });
+    }
+
+    // Abre a conexão com o banco de dados
     const db = openDbConnection();
-    db.run("UPDATE Baladas SET nome = ?, cidade = ?, data = ?, tipo = ?  WHERE id = ?", [nome, endereco, data, tipo, id], function (err) {
-        db.close();
+    // Monta a string de comando SQL para a atualização
+    const comando = `UPDATE baladas SET ${fields.join(", ")} WHERE id = ?`;
+    // Adiciona o ID do balada ao final do array de valores
+    values.push(id);
+
+    // Executa o comando SQL de atualização
+    db.run(comando, values, function (err) {
+        db.close(); // Fecha a conexão com o banco de dados
+        // Retorna o erro (se houver) e o número de linhas alteradas
         callback(err, { changes: this.changes });
     });
 }
-
 // Função para deletar uma balada 
 function deleteBalada(id, callback) {
     const db = openDbConnection();
