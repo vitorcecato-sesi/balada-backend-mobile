@@ -64,11 +64,10 @@ export default function Inserir({ navigation }) {
   }
 
   return (
-    <View style={styles.container}> {/* Contêiner principal */}
-      <Text style={styles.titulo}>Cadastrar Balada</Text> {/* Título da página */}
+    <View style={styles.container}> 
+      <Text style={styles.titulo}>Cadastrar Balada</Text>
 
-      <View style={styles.inputWrapper}> {/* Borda englobando os inputs */}
-        {/* Grupo de inputs com labels descritivas */}
+      <View style={styles.inputWrapper}> 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Nome da Balada</Text>
           <TextInput
@@ -120,7 +119,7 @@ export default function Inserir({ navigation }) {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.botao} onPress={metodoPost}> {/* Botão de envio */}
+      <TouchableOpacity style={styles.botao} onPress={metodoPost}>
         <Text style={styles.textoBotao}>Inserir</Text>
       </TouchableOpacity>
     </View>
