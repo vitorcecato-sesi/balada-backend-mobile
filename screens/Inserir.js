@@ -9,28 +9,27 @@ const URL_API = `http://${ipLocal}:${porta}`
 export default function Inserir({ navigation }) {
   const [nome, setNome] = useState("")
   const [endereco, setEndereco] = useState("")
-  const [dataBalada, setDataBalada] = useState("") // <- só para a data digitada
+  const [dataBalada, setDataBalada] = useState("") // <- corrigido
   const [tipo, setTipo] = useState("")
-    const [cidade, setCidade] = useState("")
-  const [listaBaladas, setListaBaladas] = useState([]) // <- lista de registros salvos
+  const [cidade, setCidade] = useState("")
+  const [listaBaladas, setListaBaladas] = useState([])
 
   const limparCampos = () => {
     setNome("")
     setEndereco("")
-    setDataBalada("")
+    setDataBalada("") // <- corrigido
     setTipo("")
     setCidade("")
   }
 
   const metodoPost = async () => {
-    // Validação: não permitir campos vazios
     if (!nome || !endereco || !dataBalada || !tipo || !cidade) {
       Alert.alert("Erro", "Preencha todos os campos antes de continuar!")
       return
     }
 
     try {
-      const response = await fetch(`${URL_API}/baladas/`, {
+      const response = await fetch(`${URL_API}/balada/`, { // <- corrigido
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +37,7 @@ export default function Inserir({ navigation }) {
         body: JSON.stringify({
           nome: nome,
           endereco: endereco,
-          data: dataBalada, // usa a data do input
+          data: dataBalada, // <- corrigido
           tipo: tipo,
           cidade: cidade,
         }),
@@ -51,7 +50,6 @@ export default function Inserir({ navigation }) {
 
       const dadosBD = await response.json()
 
-      // Atualiza a lista local com o novo item
       setListaBaladas([...listaBaladas, dadosBD])
 
       Alert.alert("Sucesso", "Balada cadastrada com sucesso!")
@@ -64,36 +62,35 @@ export default function Inserir({ navigation }) {
 
   return (
     <View style={styles.container}>
-
       <Text style={styles.titulo}>Cadastrar Balada</Text>
 
       <TextInput
         style={styles.input}
-        placeholder="Nome"
+        placeholder="Digite o nome da balada"
         value={nome}
         onChangeText={setNome}
       />
       <TextInput
         style={styles.input}
-        placeholder="Tipo"
+        placeholder="Digite o Tipo da balada"
         value={tipo}
         onChangeText={setTipo}
       />
       <TextInput
         style={styles.input}
-        placeholder="Endereço"
+        placeholder="Digite o Endereço"
         value={endereco}
         onChangeText={setEndereco}
       />
       <TextInput
         style={styles.input}
-        placeholder="Data"
+        placeholder="Digite a Data (AAAA-MM-DD)"
         value={dataBalada}
         onChangeText={setDataBalada}
       />
-     <TextInput
+      <TextInput
         style={styles.input}
-        placeholder="Cidade"
+        placeholder="Digite a Cidade"
         value={cidade}
         onChangeText={setCidade}
       />
@@ -102,7 +99,6 @@ export default function Inserir({ navigation }) {
         <Text style={styles.textoBotao}>Inserir</Text>
       </TouchableOpacity>
 
-      {/* Exibir lista de baladas cadastradas */}
       {listaBaladas.length > 0 && (
         <View style={{ marginTop: 20, width: "100%" }}>
           <Text style={{ fontWeight: "bold", fontSize: 18, marginBottom: 10 }}>
@@ -141,16 +137,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 15,
   },
-  botaoMen: {
-    backgroundColor: "gray",
-    padding: 8,
-    borderRadius: 8,
-    alignItems: "center",
-    position: "absolute",
-    top: 40,
-    left: 20,
-    width: 80,
-  },
   botao: {
     backgroundColor: "#9b59b6",
     padding: 15,
@@ -162,11 +148,6 @@ const styles = StyleSheet.create({
   textoBotao: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
-  },
-  textoBotaoMen: {
-    color: "#fff",
-    fontSize: 12,
     fontWeight: "bold",
   },
 })
