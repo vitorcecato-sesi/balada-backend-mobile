@@ -1,4 +1,3 @@
-//balada.js 
 const sqlite3 = require('sqlite3').verbose();
 const dbPath = './infra/database.db';
 
@@ -52,7 +51,8 @@ function getBaladaByCity(cidade, callback) {
 function createBalada(balada, callback) {
     const { nome, endereco, data, tipo, cidade } = balada;
     const db = openDbConnection();
-    db.run("INSERT INTO Baladas (nome, cidade, data, tipo, endereco  ) VALUES (?, ?, ?, ?, ?)", [nome, cidade, data, tipo, endereco], function (err) {
+    db.run("INSERT INTO Baladas (nome, cidade, data, tipo, endereco  ) VALUES (?, ?, ?, ?, ?)", 
+        [nome, cidade, data, tipo, endereco], function (err) {
         db.close();
         callback(err, { id: this.lastID });
     });
@@ -128,3 +128,4 @@ module.exports = {
     updateBalada,
     deleteBalada
 };
+
