@@ -24,11 +24,16 @@ export default function Deletar({ navigation }) {
         method: "DELETE",
       });
       // Se não houver erro, exibe mensagem de sucesso e limpa o campo de ID
-      setErroMsg("Deletado com sucesso!");
-      setId("");
+      if (response.ok) { // Se a resposta for OK (sucesso)
+        setErroMsg("Deletado com sucesso!"); // Mostra mensagem de sucesso
+        setId(""); // Limpa o campo de ID
+      } else {
+        
+        setErroMsg("Balada já foi apagada ou não existe.");
+      }
     } catch (error) {
       // Se não for pssivel deletar, mostra mensagem de erro
-      setErroMsg("Erro ao deletar balada");
+      setErroMsg("Erro ao conectar com a Banco de Dados da balada.");
     }
     setLoading(false); // Desativa o estado de carregamento
   };
