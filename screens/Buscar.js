@@ -48,7 +48,7 @@ export default function Menu({ navigation }) {
       return;
     }
     setErroMsg("");
-    metodoGetCidade(); //Chama o metodo GET po Cidade
+    metodoGetCidade(); //Chama o metodo GET por Cidade
   };
 
   // Renderização do item
@@ -69,7 +69,7 @@ export default function Menu({ navigation }) {
         <View>
           <TouchableOpacity
             style={[styles.menuButton, { backgroundColor: "#2196F3" }]}
-            onPress={() => setModalGetCidadeVisivel(true)}
+            onPress={() => setModalGetCidadeVisivel(true)} //Abre o Modal
           >
             <Text style={styles.menuButtonText}>GET Cidade</Text>
           </TouchableOpacity>
@@ -110,7 +110,7 @@ export default function Menu({ navigation }) {
                 renderItem={renderizarItem} //Vai renderizar o a balada da Cidade digitada
                 style={styles.lista}
                 ListEmptyComponent={ //Se o component estiver vazio
-                  !erroMsg ? (
+                  !erroMsg ? ( //Se tiver 
                     <Text style={{ textAlign: "center", color: "#555", marginTop: 20 }}>
                       Nenhuma balada encontrada.
                     </Text>
