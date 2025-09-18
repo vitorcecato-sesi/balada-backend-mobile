@@ -9,6 +9,7 @@ import Inserir from './screens/Inserir'
 import Atualizar from './screens/Atualizar'
 import Deletar from './screens/Deletar'
 
+// Cria a pilha de navegação
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -18,33 +19,33 @@ export default function App() {
             <Stack.Navigator initialRouteName="Menu">
 
                 <Stack.Screen
-                    name="Menu"                 
-                    component={Menu}        
-                    options={{ title: 'Menu' }} 
+                    name="Menu" // Nome da tela             
+                    component={Menu} // Componente que será renderizado      
+                    options={{ title: 'Menu' }} // Opções de configuração da tela
                 />
 
                 <Stack.Screen
-                    name="Buscar"                   
-                    component={Buscar}    
-                    options={{ title: 'Buscar' }}
+                    name="Buscar"   // Nome da tela                   
+                    component={Buscar}    // Componente que será renderizado
+                    options={{ title: 'Buscar' }}   // Opções de configuração da tela
                 />
 
                 <Stack.Screen
-                    name="Inserir"                
-                    component={Inserir}     
-                    options={{ title: 'Inserir' }}
+                    name="Inserir"  // Nome da tela                
+                    component={Inserir}  // Componente que será renderizado     
+                    options={{ title: 'Inserir' }}  // Opções de configuração da tela
                 />
 
                 <Stack.Screen 
-                    name='Atualizar'
-                    component={Atualizar}
-                    options={{ title: 'Atualizar' }}
+                    name='Atualizar'    // Nome da tela
+                    component={Atualizar}   // Componente que será renderizado
+                    options={{ title: 'Atualizar' }}    // Opções de configuração da tela
                 />
 
                 <Stack.Screen 
-                    name='Deletar'
-                    component={Deletar}
-                    options={{ title: 'Deletar' }}
+                    name='Deletar'  // Nome da tela
+                    component={Deletar} // Componente que será renderizado
+                    options={{ title: 'Deletar' }}  // Opções de configuração da tela
                 />
 
             </Stack.Navigator>
