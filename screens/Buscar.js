@@ -14,14 +14,15 @@ export default function Menu({ navigation }) {
   const [cidade, setCidade] = useState("");
 
   // Configuração Backend -----------------------------------
-  const ipLocal = "192.168.1.203";
+  const ipLocal = "172.20.10.2";
   const porta = "3000";
   const URL_API = `http://${ipLocal}:${porta}`;
 
   //Metodo Get Balada por Cidade
   const metodoGetCidade = async () => {
     try {
-      const response = await fetch(`${URL_API}/balada/cidade/${cidade}`) // chamada para api
+      console.log(cidade.toUpperCase())
+      const response = await fetch(`${URL_API}/balada/cidade/${cidade.toUpperCase()}`) // chamada para api / UpperCase converte para maiúsculo
       const dadosBD = await response.json() // armazena os dados
       console.log(dadosBD)  // mostra no console log para o dev
 
@@ -30,7 +31,7 @@ export default function Menu({ navigation }) {
         // se não tiver, irá validar o data e removera a mensagem de erro
 
         setErroMsg("")
-        setData([dadosBD])
+        setData(dadosBD)
 
       } else {  // Caso tenha, informara que a balada não foi encontrada
         setData(null)
