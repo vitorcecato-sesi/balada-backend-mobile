@@ -71,10 +71,10 @@ export default function Inserir({ navigation }) {
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Nome da Balada</Text>
           <TextInput
-            style={styles.input} // Estilo do input
-            placeholder="Digite o nome da balada" // Placeholder do input
-            value={nome} // Valor do input vinculado ao estado 'nome'
-            onChangeText={setNome} // Atualiza o estado 'nome' ao digitar
+            style={styles.input}
+            placeholder="Digite o nome da balada"
+            value={nome}
+            onChangeText={setNome}
           />
         </View>
 
@@ -119,7 +119,7 @@ export default function Inserir({ navigation }) {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.botao} onPress={metodoPost}>  {/*Chama a função metodoPost ao pressionar o botão*/} 
+      <TouchableOpacity style={styles.botao} onPress={metodoPost}> 
         <Text style={styles.textoBotao}>Inserir</Text>
       </TouchableOpacity>
     </View>
