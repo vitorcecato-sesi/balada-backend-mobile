@@ -1,35 +1,40 @@
+// Importação de bibliotecas necessárias do React e React Native
 import React, { useState } from "react"
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native"
 
-// Configuração Backend -----------------------------------
-const ipLocal = "10.136.38.187"
-const porta = "3000"
-const URL_API = `http://${ipLocal}:${porta}`
+// Configuração do backend com IP e porta do servidor
+const ipLocal = "10.136.38.187" // IP local do servidor
+const porta = "3000" // Porta do servidor
+const URL_API = `http://${ipLocal}:${porta}` // URL base da API
 
 export default function Inserir({ navigation }) {
-  const [nome, setNome] = useState("")
-  const [endereco, setEndereco] = useState("")
-  const [dataBalada, setDataBalada] = useState("") // <- corrigido
-  const [tipo, setTipo] = useState("")
-  const [cidade, setCidade] = useState("")
-  const [listaBaladas, setListaBaladas] = useState([])
+  // Declaração de estados para armazenar os valores dos inputs
+  const [nome, setNome] = useState("") // Nome da balada
+  const [endereco, setEndereco] = useState("") // Endereço da balada
+  const [dataBalada, setDataBalada] = useState("") // Data da balada
+  const [tipo, setTipo] = useState("") // Tipo da balada
+  const [cidade, setCidade] = useState("") // Cidade da balada
 
+  // Função para limpar os campos após o cadastro
   const limparCampos = () => {
     setNome("")
     setEndereco("")
-    setDataBalada("") // <- corrigido
+    setDataBalada("")
     setTipo("")
     setCidade("")
   }
 
+  // Função para enviar os dados para o backend via método POST
   const metodoPost = async () => {
+    // Verifica se todos os campos estão preenchidos
     if (!nome || !endereco || !dataBalada || !tipo || !cidade) {
       Alert.alert("Erro", "Preencha todos os campos antes de continuar!")
       return
     }
 
     try {
-      const response = await fetch(`${URL_API}/balada/`, { // <- corrigido
+      // Envia os dados para a API
+      const response = await fetch(`${URL_API}/balada/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,117 +42,159 @@ export default function Inserir({ navigation }) {
         body: JSON.stringify({
           nome: nome,
           endereco: endereco,
-          data: dataBalada, // <- corrigido
+          data: dataBalada,
           tipo: tipo,
           cidade: cidade,
         }),
       })
 
+      // Verifica se a resposta foi bem-sucedida
       if (!response.ok) {
         Alert.alert("Erro", "Não foi possível cadastrar a balada.")
         return
       }
 
-      const dadosBD = await response.json()
-
-      setListaBaladas([...listaBaladas, dadosBD])
-
       Alert.alert("Sucesso", "Balada cadastrada com sucesso!")
-      limparCampos()
+      limparCampos() // Limpa os campos após o sucesso
     } catch (error) {
+      // Exibe erro no console e alerta o usuário
       Alert.alert("Erro", "Erro ao cadastrar balada! Verifique o console.")
       console.log(error)
     }
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Cadastrar Balada</Text>
+    <View style={styles.container}> {/* Contêiner principal */}
+      <Text style={styles.titulo}>Cadastrar Balada</Text> {/* Título da página */}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o nome da balada"
-        value={nome}
-        onChangeText={setNome}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o Tipo da balada"
-        value={tipo}
-        onChangeText={setTipo}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Digite o Endereço"
-        value={endereco}
-        onChangeText={setEndereco}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Digite a Data (AAAA-MM-DD)"
-        value={dataBalada}
-        onChangeText={setDataBalada}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Digite a Cidade"
-        value={cidade}
-        onChangeText={setCidade}
-      />
+      <View style={styles.inputWrapper}> {/* Borda englobando os inputs */}
+        {/* Grupo de inputs com labels descritivas */}
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Nome da Balada</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o nome da balada"
+            value={nome}
+            onChangeText={setNome}
+          />
+        </View>
 
-      <TouchableOpacity style={styles.botao} onPress={metodoPost}>
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Tipo da Balada</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite o Tipo da balada"
+            value={tipo}
+            onChangeText={setTipo}
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Endereço</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Rua Exemplo, 123"
+            value={endereco}
+            onChangeText={setEndereco}
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Data</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="(AAAA-MM-DD)"
+            value={dataBalada}
+            onChangeText={setDataBalada}
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Cidade</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite a Cidade"
+            value={cidade}
+            onChangeText={setCidade}
+          />
+        </View>
+      </View>
+
+      <TouchableOpacity style={styles.botao} onPress={metodoPost}> {/* Botão de envio */}
         <Text style={styles.textoBotao}>Inserir</Text>
       </TouchableOpacity>
-
-      {listaBaladas.length > 0 && (
-        <View style={{ marginTop: 20, width: "100%" }}>
-          <Text style={{ fontWeight: "bold", fontSize: 18, marginBottom: 10 }}>
-            Baladas Cadastradas:
-          </Text>
-          {listaBaladas.map((item, index) => (
-            <Text key={index}>
-              {item.nome} - {item.endereco} - {item.data} - {item.tipo} - {item.cidade}
-            </Text>
-          ))}
-        </View>
-      )}
     </View>
   )
 }
 
+// Estilos para os componentes da página
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#e6e6fa", // Fundo roxo claro
     padding: 20,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   titulo: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
+    color: "#4a4a4a",
+  },
+  inputWrapper: {
+    width: "90%",
+    borderWidth: 2,
+    borderColor: "#9b59b6", // Cor da borda englobando os inputs
+    borderRadius: 12,
+    padding: 15,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    marginBottom: 20,
+  },
+  inputGroup: {
+    marginBottom: 15, // Espaçamento entre os grupos de inputs
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: "#4a4a4a",
   },
   input: {
-    width: "80%",
+    width: "100%",
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15,
+    borderColor: "#9b59b6",
+    borderRadius: 12,
+    padding: 12,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   botao: {
     backgroundColor: "#9b59b6",
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: "center",
     marginTop: 20,
-    width: "60%",
+    width: "70%",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   textoBotao: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
 })
